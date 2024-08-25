@@ -4,6 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
     color: white;;
     background-color: beige;
+    border-radius: 8px;
 }
 #flex {
     display: flex;
@@ -21,6 +22,9 @@
     border-width: 10px;
     border-color: black;
     border-style: solid;
+    background-color: white;
+    border-radius: 18px;
+    box-shadow: 10px 5px 2px 1px rgba(0, 0, 0, 0.363);
 }
 
 #display {
@@ -36,6 +40,7 @@
     display: flex;
     justify-content: center;
     flex: 1 1 auto;
+    background-color: white;
 }
 
 #clear {
@@ -51,5 +56,10 @@ button {
     border-width: 2px;
     border-color: white;
     border-style: solid;
+}
+
+#add, #subtract, #multiply, #divide {
+    background-color: rgb(21, 143, 102);
+    color: white;
 }
 
