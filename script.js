@@ -23,9 +23,16 @@ const subBtn = document.querySelector("#subtract");
 const multiplyBtn = document.querySelector("#multiply");
 const divideBtn = document.querySelector("#divide");
 const equalBtn = document.querySelector("#equals");
-const dotBtn = document.querySelector("#dot")
+const dotBtn = document.querySelector("#dot");
+const toggleBtn = document.querySelector("#toggle")
 
-zero.addEventListener       ("click", () => {if(firstVal === "") {} else {addNumber(0)}})
+zero.addEventListener       ("click", () => {
+    if (operator === "") {
+        if(firstVal === "0") {} else {addNumber(0)}
+    } else {
+        if(secondVal === "0") {} else {addNumber(0)}
+    }
+})
 one.addEventListener        ("click", () => addNumber(1));
 two.addEventListener        ("click", () => addNumber(2));
 three.addEventListener      ("click", () => addNumber(3));
@@ -43,14 +50,22 @@ multiplyBtn.addEventListener("click", () => changeOp("*"));
 divideBtn.addEventListener  ("click", () => changeOp("/"));
 
 equalBtn.addEventListener   ("click", () => {
+    if (Display1 !== "" && Display2 !== "" && Display3 !== "") {
     resultVal = operate(firstVal, secondVal, operator); 
     clearDisplay();
     clearBaseVal();
     changeDisplay(resultVal, 0);
     firstVal = resultVal;
+    } else {clearAll()}
 });
 
-dotBtn.addEventListener     ("click", () => addNumber("."));
+dotBtn.addEventListener     ("click", () => {
+    if (operator === "") {
+    if (firstVal.includes(".")) {} else {addNumber(".")}
+    } else {
+    if (secondVal.includes(".")) {} else {addNumber(".")}
+    }
+});
 
 function changeOp(op) {
     operator = op;
@@ -60,11 +75,11 @@ function changeOp(op) {
 function addNumber(num) {
     if (operator === "") {
     let stringVal = String(firstVal) + String(num);
-    firstVal = parseFloat(stringVal);
+    firstVal = stringVal;
     chooseDisplay(firstVal);
     } else {
     let stringVal2 = String(secondVal) + String(num);
-    secondVal = parseFloat(stringVal2);  
+    secondVal = stringVal2;
     chooseDisplay(secondVal); 
     }
 }
@@ -82,10 +97,13 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+    if (num2 === 0) {return "That can't be right"}
     return num1 / num2
 }
 
 function operate(num1, num2, operator) {
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
     if (operator === "+") return add(num1, num2);
     if (operator === "-") return sub(num1, num2);
     if (operator === "/") return divide(num1, num2);
