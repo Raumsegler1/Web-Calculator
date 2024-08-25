@@ -1,19 +1,73 @@
-let currentVal = 0;
-let lastVal = 0;
+let firstVal = "";
+let secondVal = "";
 let resultVal = 0;
-let operator = "+";
+let operator = "";
+let Display1 = "";
+let Display2 = "";
+let Display3 = "";
 
 const display = document.querySelector("#display");
-const one = document.querySelector("#1");
-const two = document.querySelector("#2");
-const three = document.querySelector("#3");
-const four = document.querySelector("#4");
-const five = document.querySelector("#5");
-const six = document.querySelector("#6");
-const seven = document.querySelector("#7");
-const eight = document.querySelector("#8");
-const nine = document.querySelector("#9");
-const clearBtn = document.querySelector("#clear")
+const zero = document.querySelector("#zero")
+const one = document.querySelector("#one");
+const two = document.querySelector("#two");
+const three = document.querySelector("#three");
+const four = document.querySelector("#four");
+const five = document.querySelector("#five");
+const six = document.querySelector("#six");
+const seven = document.querySelector("#seven");
+const eight = document.querySelector("#eight");
+const nine = document.querySelector("#nine");
+const clearBtn = document.querySelector("#clear");
+const addBtn = document.querySelector("#add");
+const subBtn = document.querySelector("#subtract");
+const multiplyBtn = document.querySelector("#multiply");
+const divideBtn = document.querySelector("#divide");
+const equalBtn = document.querySelector("#equals");
+const dotBtn = document.querySelector("#dot")
+
+zero.addEventListener       ("click", () => {if(firstVal === "") {} else {addNumber(0)}})
+one.addEventListener        ("click", () => addNumber(1));
+two.addEventListener        ("click", () => addNumber(2));
+three.addEventListener      ("click", () => addNumber(3));
+four.addEventListener       ("click", () => addNumber(4));
+five.addEventListener       ("click", () => addNumber(5));
+six.addEventListener        ("click", () => addNumber(6));
+seven.addEventListener      ("click", () => addNumber(7));
+eight.addEventListener      ("click", () => addNumber(8));
+nine.addEventListener       ("click", () => addNumber(9));
+
+clearBtn.addEventListener   ("click", () => clearAll());
+addBtn.addEventListener     ("click", () => changeOp("+"));
+subBtn.addEventListener     ("click", () => changeOp("-"));
+multiplyBtn.addEventListener("click", () => changeOp("*"));
+divideBtn.addEventListener  ("click", () => changeOp("/"));
+
+equalBtn.addEventListener   ("click", () => {
+    resultVal = operate(firstVal, secondVal, operator); 
+    clearDisplay();
+    clearBaseVal();
+    changeDisplay(resultVal, 0);
+    firstVal = resultVal;
+});
+
+dotBtn.addEventListener     ("click", () => addNumber("."));
+
+function changeOp(op) {
+    operator = op;
+    changeDisplay(operator, 1);
+}
+
+function addNumber(num) {
+    if (operator === "") {
+    let stringVal = String(firstVal) + String(num);
+    firstVal = parseFloat(stringVal);
+    chooseDisplay(firstVal);
+    } else {
+    let stringVal2 = String(secondVal) + String(num);
+    secondVal = parseFloat(stringVal2);  
+    chooseDisplay(secondVal); 
+    }
+}
 
 function add(num1, num2) {
     return num1 + num2;
@@ -38,15 +92,49 @@ function operate(num1, num2, operator) {
     if (operator === "*") return multiply(num1, num2);
 }
 
-function changeDisplay(Content) {
-    display.textContent(Content);
+function chooseDisplay(Content) {
+    if (Display2 === "") {
+        changeDisplay(Content, 0)
+    } else {
+        changeDisplay(Content, 2)
+    }
 }
 
-function clear() {
-    changeDisplay("");
-    currentVal = 0;
-    lastVal = 0;
+function changeDisplay(Content, value) {
+    if (value === 0) {
+        Display1 = Content;
+        display.textContent = Display1
+    } else if (value === 1){
+        Display2 = Content;
+        display.textContent = Display1 + Display2 + Display3
+    } else if (value === 2) {
+        Display3 = Content;
+        display.textContent = Display1 + Display2 + Display3
+    } else {
+        console.log("Display Error Invalid value")
+    }
+}
+
+function clearDisplay() {
+    changeDisplay("", 0);
+    changeDisplay("", 1);
+    changeDisplay("", 2);
+}
+
+function clearBaseVal() {
+    firstVal = "";
+    secondVal = "";
+}
+
+function clearAll() {
+    changeDisplay("", 0);
+    changeDisplay("", 1);
+    changeDisplay("", 2);
+    firstVal = "";
+    secondVal = "";
     resultVal = 0;
+    operator = ""
+    Display1 = ""
 }
 
 console.log(operate(5, 10, "+"));
